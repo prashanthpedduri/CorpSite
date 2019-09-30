@@ -92,6 +92,7 @@ pipeline {
         }
         stage('PROD') {
             steps {
+                sh 'mvn --version'
                 snDevOpsStep()
                 snDevOpsChange()
                 // script {                
