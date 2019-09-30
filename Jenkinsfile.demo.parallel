@@ -88,6 +88,11 @@ pipeline {
                         //     -Dsonar.analysis.buildURL=$BUILD_URL
                         // '''
                     }
+                    post {
+                        success {
+                            junit '**/target/surefire-reports/*.xml' 
+                        }
+                    }
                 }
             }
         }
