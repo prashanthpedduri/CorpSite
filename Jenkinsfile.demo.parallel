@@ -18,13 +18,6 @@ pipeline {
             }
         }
         stage('UAT deploy') {
-
-            steps {
-                sh 'mvn -version'
-            }
-        }
-
-        stage('UAT deploy') {
             stages {
                 stage("Staging-Deploy") {
                     steps {
