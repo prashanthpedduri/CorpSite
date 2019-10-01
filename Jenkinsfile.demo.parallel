@@ -91,18 +91,26 @@ pipeline {
                 }
              }
             }
-        }      
-        stage('PROD') {
-           stages{
-             stage('sub-prod') {
-               steps {
-                    sh 'mvn --version'
-                    snDevOpsStep()
-                    snDevOpsChange()
-                }
-             }
-           }
-            
         }
+        
+        stage('PROD') {
+            steps {
+                sh 'mvn --version'
+                snDevOpsStep()
+                snDevOpsChange()
+            }
+        }
+        
+        // stage('PROD') {
+        //    stages{
+        //      stage('sub-prod') {
+        //        steps {
+        //             sh 'mvn --version'
+        //             snDevOpsStep()
+        //             snDevOpsChange()
+        //         }
+        //      }
+        //    }
+        // }
     }
 }
