@@ -78,6 +78,15 @@ pipeline {
                 }
             }
         }
+        
+        stage('PreProd') {
+            stage('Pre_Prod_Sub1') {
+                steps {
+                    sh 'mvn -version'
+                }
+            }
+        }
+           
         stage('PROD') {
             steps {
                 sh 'mvn --version'
