@@ -93,11 +93,16 @@ pipeline {
             }
         }      
         stage('PROD') {
-            steps {
-                sh 'mvn --version'
-                snDevOpsStep()
-                snDevOpsChange()
-            }
+           stages{
+             stage('sub-prod') {
+               steps {
+                    sh 'mvn --version'
+                    snDevOpsStep()
+                    snDevOpsChange()
+                }
+             }
+           }
+            
         }
     }
 }
