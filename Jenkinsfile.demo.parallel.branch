@@ -90,21 +90,21 @@ pipeline {
             }
         }
         stage('PROD') {
-            snDevOpsStep
                 stage('deploy UAT') {
                     when {
                         branch 'dev'
                     }
                     steps {
-                        
+                        snDevOpsStep()
                     }
                 }
                 stage('deploy PROD') {
                     when {
                         branch 'master'
                     }
-                    snDevOpsStep
+                    
                     steps {
+                        snDevOpsStep()
                         snDevOpsChange()
                         script {
                             sshPublisher(continueOnError: false, failOnError: true,
