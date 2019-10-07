@@ -58,7 +58,7 @@ pipeline {
                             mvn --version
                         '''
                         sh 'mvn compile'
-                        //sh 'mvn verify'
+                        sh 'mvn verify'
                     }
                     post {
                         success {
