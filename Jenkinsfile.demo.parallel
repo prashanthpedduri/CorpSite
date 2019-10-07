@@ -27,7 +27,7 @@ pipeline {
                             export PATH=$PATH:$M2_HOME/bin
                             mvn --version
                         '''
-                        sh 'mvn package'
+                        // sh 'mvn package' // this causes junit-tests to be run 
                     }
                 }
                 stage("Send-Report") {
