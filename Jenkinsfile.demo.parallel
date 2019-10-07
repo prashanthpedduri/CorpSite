@@ -28,6 +28,7 @@ pipeline {
                             mvn --version
                         '''
                         // sh 'mvn package' // this causes junit-tests to be run 
+                        sh 'mvn test'
                     }
                 }
                 stage("Send-Report") {
@@ -59,7 +60,7 @@ pipeline {
                         '''
                         //sh 'mvn compile'
                         //sh 'mvn verify'
-                        mvn test
+                        //sh 'mvn test'
                     }
                     post {
                         success {
