@@ -57,8 +57,9 @@ pipeline {
                             export PATH=$PATH:$M2_HOME/bin
                             mvn --version
                         '''
-                        sh 'mvn compile'
-                        sh 'mvn verify'
+                        //sh 'mvn compile'
+                        //sh 'mvn verify'
+                        mvn test
                     }
                     post {
                         success {
