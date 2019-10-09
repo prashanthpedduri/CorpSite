@@ -14,7 +14,6 @@ pipeline {
                     mvn --version
                 '''
                 sh 'mvn compile'
-                //sh 'mvn verify'
             }
         }
         stage('UAT deploy') {
@@ -27,7 +26,6 @@ pipeline {
                             export PATH=$PATH:$M2_HOME/bin
                             mvn --version
                         '''
-                        // sh 'mvn package' // this causes junit-tests to be run 
                         sh 'mvn test'
                     }
                 }
@@ -58,9 +56,6 @@ pipeline {
                             export PATH=$PATH:$M2_HOME/bin
                             mvn --version
                         '''
-                        //sh 'mvn compile'
-                        //sh 'mvn verify'
-                        //sh 'mvn test'
                     }
                     post {
                         success {
@@ -96,22 +91,14 @@ pipeline {
              }
             }
         }
-        
-        // stage('PROD') {
-        //     steps {
-        //         sh 'mvn --version'
-        //         snDevOpsStep()
-        //         snDevOpsChange()
-        //     }
-        // }
-        
+         
         stage('PROD') {
            stages{
              stage('sub-prod') {
                steps {
                     sh 'mvn --version'
                     snDevOpsStep()
-                    snDevOpsChange()
+                    //snDevOpsChange()
                 }
              }
            }
