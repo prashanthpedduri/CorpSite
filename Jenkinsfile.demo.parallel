@@ -70,7 +70,7 @@ pipeline {
                 }
                 stage('UAT static code test') {
                     steps {
-                        // snDevOpsStep()
+                         snDevOpsStep()
                         // snDevOpsChange()
                         sh '''
                             export M2_HOME=/opt/apache-maven-3.6.0 # your Mavan home path
