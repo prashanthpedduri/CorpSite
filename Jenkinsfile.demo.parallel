@@ -77,20 +77,20 @@ pipeline {
                 }
             }
         }
-        stage('Pre Prod') {
-           stages {
-            stage('Pre_Prod_Sub1') {
-                steps {
-                    sh 'mvn --version'
-                }
-             }
-             stage('Pre_Prod_Sub2') {
-                steps{
-                    sh 'mvn --version'
-                }
-             }
-            }
-        }
+        //stage('Pre Prod') {
+        //   stages {
+        //    stage('Pre_Prod_Sub1') {
+        //        steps {
+        //            sh 'mvn --version'
+        //        }
+        //     }
+        //     stage('Pre_Prod_Sub2') {
+        //        steps{
+        //            sh 'mvn --version'
+         //       }
+        //     }
+        //    }
+       // }
          
         stage('PROD') {
            stages{
