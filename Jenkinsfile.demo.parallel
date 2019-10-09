@@ -47,7 +47,7 @@ pipeline {
         }
         stage('UAT test') {
             parallel {
-                stage('UAT test') {
+                stage('UAT test test1') {
                     steps {
                         snDevOpsStep()
                         //snDevOpsChange()
