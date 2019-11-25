@@ -107,7 +107,7 @@ pipeline {
                steps {
                     sh 'mvn --version'
                     snDevOpsStep()
-                    snDevOpsChange()
+                    //snDevOpsChange()
                 }
              }
            }
