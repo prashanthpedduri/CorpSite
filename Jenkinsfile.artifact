@@ -11,7 +11,7 @@ pipeline {
                 echo "GIT branch is ${env.GIT_BRANCH}"
                 echo "globalprops -- ${env.snartifacttoolid} -- ${env.snhost} -- ${env.snuser} -- ${env.snpassword} ";
                 sleep 10
-                snDevOpsArtifact('artifactName':'sa-web.jar', 'https://artifact.devsnc.com/content/groups/devcom/sa/web/sentiment-analysis-web', '3.1', 'https://artifact.devsnc.com/content/groups/devcom/sa/web/sentiment-analysis-web/3.1-snapshot/sa-web-3.1.jar', 'https://artifact.devsnc.com/content/repositories/services-1031', 'services-1031', '3.1.0');
+                snDevOpsArtifact(artifactName: "sa-web.jar", artifactURL: "https://artifact.devsnc.com/content/groups/devcom/sa/web/sentiment-analysis-web", version: "3.1", versionURL: "https://artifact.devsnc.com/content/groups/devcom/sa/web/sentiment-analysis-web/3.1-snapshot/sa-web-3.1.jar", repositoryURL: "https://artifact.devsnc.com/content/repositories/services-1031", repositoryName: "services-1031", semanticVersion: "3.1.0")
             }
         }
         stage('Test') {
