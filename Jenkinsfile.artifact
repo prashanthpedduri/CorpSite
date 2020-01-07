@@ -24,19 +24,20 @@ pipeline {
                 echo "globalprops -- ${env.snartifacttoolid} -- ${env.snhost} -- ${env.snuser} -- ${env.snpassword} ";
                 sleep 120
                 sh """
-curl -X POST \
--H "content-type: application/json" \
--d '{"artifacts":[ \
-{"name":"${artifact1name}","url":"${artifact1url}","version":"${artifact1Version}", \
-"versionUrl":"${artifact1VersionUrl}", "repositoryUrl":"${repoUrl}","repositoryName":"${repoName}", \
-"semanticVersion": "${artifact1SemVersion}"}, \
-{"name":"${artifact2name}","url":"${artifact2url}","version":"${artifact2Version}", \
-"versionUrl":"${artifact2VersionUrl}", "repositoryUrl":"${repoUrl}","repositoryName":"${repoName}", \
-"semanticVersion": "${artifact2SemVersion}"}], \
-"pipeline": "${env.JOB_NAME}","pipelineRun": "${env.BUILD_NUMBER}", "stage": "${env.STAGE_NAME}", \
-"branchName": "${env.GIT_BRANCH}"}' \
- http://${env.snuser}:${env.snpassword}@${env.snhost}/api/sn_devops/devops/artifact/registration?toolId=${env.snartifacttoolid}
+// curl -X POST \
+// -H "content-type: application/json" \
+// -d '{"artifacts":[ \
+// {"name":"${artifact1name}","url":"${artifact1url}","version":"${artifact1Version}", \
+// "versionUrl":"${artifact1VersionUrl}", "repositoryUrl":"${repoUrl}","repositoryName":"${repoName}", \
+// "semanticVersion": "${artifact1SemVersion}"}, \
+// {"name":"${artifact2name}","url":"${artifact2url}","version":"${artifact2Version}", \
+// "versionUrl":"${artifact2VersionUrl}", "repositoryUrl":"${repoUrl}","repositoryName":"${repoName}", \
+// "semanticVersion": "${artifact2SemVersion}"}], \
+// "pipeline": "${env.JOB_NAME}","pipelineRun": "${env.BUILD_NUMBER}", "stage": "${env.STAGE_NAME}", \
+// "branchName": "${env.GIT_BRANCH}"}' \
+// http://${env.snuser}:${env.snpassword}@${env.snhost}/api/sn_devops/devops/artifact/registration?toolId=${env.snartifacttoolid}
              """
+             snDevOpsArtifact(${artifact1name}, ${artifact1url}, ${artifact1Version}, ${artifact1VersionUrl}, ${repoUrl}, ${repoName}, ${artifact1SemVersion})
             }
         }
         stage('Test') {
