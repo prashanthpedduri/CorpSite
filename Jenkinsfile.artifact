@@ -7,7 +7,7 @@ def artifact2name = "sa-frontend.jar"
 def artifact2url = "https://artifact.devsnc.com/content/groups/dev/com/sa/sentiment-frontend"
 def artifact2Version = "3.2"
 def artifact2VersionUrl ="https://artifact.devsnc.com/content/groups/dev/com/sa/sentiment-frontend/3.2-snapshot/sa-web-3.2.jar"
-def artifact2SemticVersion="3.2.0"
+def artifact2SemVersion="3.2.0"
 def repoUrl= "https://artifact.devsnc.com/content/repositories/services-1031"
 def repoName = "services-1031"
 pipeline {
@@ -23,7 +23,7 @@ pipeline {
                 echo "GIT branch is ${env.GIT_BRANCH}"
                 echo "globalprops -- ${env.snartifacttoolid} -- ${env.snhost} -- ${env.snuser} -- ${env.snpassword} ";
                 sleep 10
-                sh """
+//                sh """
 // curl -X POST \
 // -H "content-type: application/json" \
 // -d '{"artifacts":[ \
@@ -36,7 +36,7 @@ pipeline {
 // "pipeline": "${env.JOB_NAME}","pipelineRun": "${env.BUILD_NUMBER}", "stage": "${env.STAGE_NAME}", \
 // "branchName": "${env.GIT_BRANCH}"}' \
 // http://${env.snuser}:${env.snpassword}@${env.snhost}/api/sn_devops/devops/artifact/registration?toolId=${env.snartifacttoolid}
-             """
+//             """
              snDevOpsArtifact("${artifact1name}", "${artifact1url}", "${artifact1Version}", "${artifact1VersionUrl}", "${repoUrl}", "${repoName}", "${artifact1SemVersion}")
             }
         }
