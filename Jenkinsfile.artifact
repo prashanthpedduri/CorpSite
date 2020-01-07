@@ -37,7 +37,7 @@ pipeline {
 // "branchName": "${env.GIT_BRANCH}"}' \
 // http://${env.snuser}:${env.snpassword}@${env.snhost}/api/sn_devops/devops/artifact/registration?toolId=${env.snartifacttoolid}
              """
-             snDevOpsArtifact("${artifact1name}", "${artifact1url}", "${artifact1Version}", "${artifact1VersionUrl}", "${repoUrl}", "${repoName}", "${artifact1SemVersion}")
+             //snDevOpsArtifact("${artifact1name}", "${artifact1url}", "${artifact1Version}", "${artifact1VersionUrl}", "${repoUrl}", "${repoName}", "${artifact1SemVersion}")
             }
         }
         stage('Test') {
