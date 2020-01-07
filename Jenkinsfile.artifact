@@ -1,15 +1,3 @@
-def artifact1name = "sa-web.jar"
-def artifact1url = "https://artifact.devsnc.com/content/groups/devcom/sa/web/sentiment-analysis-web"
-def artifact1Version = "3.1"
-def artifact1VersionUrl = "https://artifact.devsnc.com/content/groups/devcom/sa/web/sentiment-analysis-web/3.1-snapshot/sa-web-3.1.jar"
-def artifact1SemVersion ="3.1.0"
-def artifact2name = "sa-frontend.jar"
-def artifact2url = "https://artifact.devsnc.com/content/groups/dev/com/sa/sentiment-frontend"
-def artifact2Version = "3.2"
-def artifact2VersionUrl ="https://artifact.devsnc.com/content/groups/dev/com/sa/sentiment-frontend/3.2-snapshot/sa-web-3.2.jar"
-def artifact2SemVersion="3.2.0"
-def repoUrl= "https://artifact.devsnc.com/content/repositories/services-1031"
-def repoName = "services-1031"
 pipeline {
     agent any
     stages {
@@ -23,21 +11,7 @@ pipeline {
                 echo "GIT branch is ${env.GIT_BRANCH}"
                 echo "globalprops -- ${env.snartifacttoolid} -- ${env.snhost} -- ${env.snuser} -- ${env.snpassword} ";
                 sleep 10
-//                sh """
-// curl -X POST \
-// -H "content-type: application/json" \
-// -d '{"artifacts":[ \
-// {"name":"${artifact1name}","url":"${artifact1url}","version":"${artifact1Version}", \
-// "versionUrl":"${artifact1VersionUrl}", "repositoryUrl":"${repoUrl}","repositoryName":"${repoName}", \
-// "semanticVersion": "${artifact1SemVersion}"}, \
-// {"name":"${artifact2name}","url":"${artifact2url}","version":"${artifact2Version}", \
-// "versionUrl":"${artifact2VersionUrl}", "repositoryUrl":"${repoUrl}","repositoryName":"${repoName}", \
-// "semanticVersion": "${artifact2SemVersion}"}], \
-// "pipeline": "${env.JOB_NAME}","pipelineRun": "${env.BUILD_NUMBER}", "stage": "${env.STAGE_NAME}", \
-// "branchName": "${env.GIT_BRANCH}"}' \
-// http://${env.snuser}:${env.snpassword}@${env.snhost}/api/sn_devops/devops/artifact/registration?toolId=${env.snartifacttoolid}
-//             """
-             snDevOpsArtifact(sa-web.jar, https://artifact.devsnc.com/content/groups/devcom/sa/web/sentiment-analysis-web, 3.1, https://artifact.devsnc.com/content/groups/devcom/sa/web/sentiment-analysis-web/3.1-snapshot/sa-web-3.1.jar, https://artifact.devsnc.com/content/repositories/services-1031, services-1031, 3.1.0)
+                snDevOpsArtifact(sa-web.jar, https://artifact.devsnc.com/content/groups/devcom/sa/web/sentiment-analysis-web, 3.1, https://artifact.devsnc.com/content/groups/devcom/sa/web/sentiment-analysis-web/3.1-snapshot/sa-web-3.1.jar, https://artifact.devsnc.com/content/repositories/services-1031, services-1031, 3.1.0);
             }
         }
         stage('Test') {
