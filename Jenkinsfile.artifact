@@ -12,7 +12,7 @@ pipeline {
                 echo "globalprops -- ${env.snartifacttoolid} -- ${env.snhost} -- ${env.snuser} -- ${env.snpassword} ";
                 sleep 5
                 //snDevOpsArtifact(artifactName: "sa-web.jar", artifactURL: "https://artifact.devsnc.com/content/groups/devcom/sa/web/sentiment-analysis-web", version: "3.1", versionURL: "https://artifact.devsnc.com/content/groups/devcom/sa/web/sentiment-analysis-web/3.1-snapshot/sa-web-3.1.jar", repositoryURL: "https://artifact.devsnc.com/content/repositories/services-1031", repositoryName: "services-1031", semanticVersion: "3.1.0")
-                snDevOpsPackage(name: "myPackage2", artifactsPayload: """{"artifacts":[{"url":"url1","currentBuildInfo":"true"},{"url":"url2","currentBuildInfo":"true"}]}""")
+                snDevOpsPackage(name: "sentimentpackage", artifactsPayload: """{"artifacts":[{"url":"https://artifact.devsnc.com/content/groups/devcom/sa/web/sentiment-analysis-web","currentBuildInfo":"true"},{"url":"https://artifact.devsnc.com/content/groups/dev/com/sa/sentiment-frontend","currentBuildInfo":"true"}]}""")
             }
         }
         stage('Test') {
