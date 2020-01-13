@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                //snDevOpsStep()
+                snDevOpsStep()
                 echo 'Building..'
                 echo "Pipeline name is ${env.JOB_NAME}"
                 echo "Pipleine run rumber is ${env.BUILD_NUMBER}"
@@ -17,14 +17,14 @@ pipeline {
         }
         stage('Test') {
             steps {
-                //snDevOpsStep()
+                snDevOpsStep()
                 echo 'Testing..'
                 sleep 3
             }
         }
         stage('Deploy') {   
             steps {
-                //snDevOpsStep()
+                snDevOpsStep()
                 echo 'Deploying....'
                 sleep 3
             }
