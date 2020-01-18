@@ -19,7 +19,10 @@ pipeline {
 
                 // New package create call
                 snDevOpsPackage(packageName: "sentimentpackage", artifactsPayload: """{"artifacts": [{"name": "sa-web.jar","repositoryName": "services-1031","version": "3.1"},{"name": "sa-frontend.jar","repositoryName": "services-1031","version": "9.2"}],"branchName":"master"}""")
-                // Old package create
+                // New package create style - 2 (with currentBuildInfo)
+                //snDevOpsPackage(packageName: "sentimentpackage", artifactsPayload: """{"artifacts": [{"name": "sa-web.jar","repositoryName": "services-1031","currentBuildInfo" : "true"},{"name": "sa-frontend.jar","repositoryName": "services-1031","currentBuildInfo" : "true"}],"branchName":"master"}""")
+                
+                // Old package create - 1
                 //snDevOpsPackageOld(packageName: "sentimentpackage", artifactsPayload: """{"artifacts": [{"name": "sa-web.jar","repositoryName": "services-1031","version": "3.1"},{"name": "sa-frontend.jar","repositoryName": "services-1031","version": "9.2"}]}""")
             }
         }
