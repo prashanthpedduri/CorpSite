@@ -38,6 +38,7 @@ pipeline {
                 snDevOpsStep()
                 echo 'Deploying....'
                 sleep 3
+                snDevOpsChange()
             }
         }
     }
