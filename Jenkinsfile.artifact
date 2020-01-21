@@ -12,7 +12,7 @@ pipeline {
                 echo "globalprops -- ${env.snartifacttoolid} -- ${env.snhost} -- ${env.snuser} -- ${env.snpassword} ";
                 sleep 5
                 // New artifact reg call
-                snDevOpsArtifact(artifactsPayload: """{"artifacts": [{"name": "sa-web.jar","version": "3.1","semanticVersion": "3.1.0","repositoryName": "services-1031"},{"name": "sa-frontend.jar","version": "3.2","semanticVersion": "3.2.0","repositoryName": "services-1031"}]}""")
+                snDevOpsArtifact("""{"artifacts": [{"name": "sa-web.jar","version": "3.1","semanticVersion": "3.1.0","repositoryName": "services-1031"},{"name": "sa-frontend.jar","version": "3.2","semanticVersion": "3.2.0","repositoryName": "services-1031"}]}""")
 
                 // Old artifact reg call
                 //snDevOpsArtifactOld("""{"artifacts": [{"name": "sa-web.jar","version": "3.1","semanticVersion": "3.1.0","repositoryName": "services-1031"},{"name": "sa-frontend.jar","version": "3.2","semanticVersion": "3.2.0","repositoryName": "services-1031"}],"stageName": "Build","branchName": "master"}""")
