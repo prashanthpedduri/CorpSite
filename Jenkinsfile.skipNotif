@@ -1,5 +1,4 @@
 pipeline {
-  //agent is used to specify which Jenkins node will use to run these jobs
   agent {
     label 'master'
   }
