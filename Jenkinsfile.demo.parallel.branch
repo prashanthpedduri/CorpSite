@@ -90,7 +90,7 @@ pipeline {
             }
         }
         stage('PROD') {
-            steps {
+            stages {
                 stage('deploy UAT') {
                     when {
                         branch 'dev'
