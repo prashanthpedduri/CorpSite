@@ -16,10 +16,6 @@ pipeline {
           }
           steps {
             snDevOpsStep()
-            build job: 'common/ExecuteATFSuite', parameters: [
-              [$class: 'StringParameterValue', name: 'instance', value: 'surfgitdev1'],
-              [$class: 'StringParameterValue', name: 'testsuiteid', value: 'e33b23421bdb84d02b58ec67bc4bcb6c']
-            ]
           }
         }
         //This is a top level stage.  When you setup your pipeline on the SN instance
@@ -34,15 +30,6 @@ pipeline {
           }
           steps {
             snDevOpsStep()
-            build job: 'common/HealthScan', parameters: [
-              [$class: 'StringParameterValue', name: 'instance', value: 'surfgitdev1'],
-              [$class: 'StringParameterValue', name: 'portfolio', value: 'Surf%20IT'],
-              [$class: 'StringParameterValue', name: 'scantype', value: 'custom_scan'],
-              [$class: 'StringParameterValue', name: 'priority', value: 'aggressive'],
-              [$class: 'StringParameterValue', name: 'appsysid', value: 'b43a63ce1b9b84d02b58ec67bc4bcb3c'],
-              [$class: 'StringParameterValue', name: 'emaillist', value: ''],
-              [$class: 'StringParameterValue', name: 'notn_pref', value: 'true']
-            ]
           }
         }
         //This is a top level stage.  When you setup your pipeline on the SN instance
@@ -63,34 +50,16 @@ pipeline {
         stage('QADeployFromGit') {
           steps {
             snDevOpsStep()
-            build job: 'common/DeployAppFromGit', parameters: [
-              [$class: 'StringParameterValue', name: 'appscope', value: 'x_snc_devops_demo4'],
-              [$class: 'StringParameterValue', name: 'instance', value: 'surfgitdemo3'],
-              [$class: 'StringParameterValue', name: 'branch', value: 'qa'],
-              [$class: 'StringParameterValue', name: 'gitrepo', value: 'https://code.devsnc.com/frank-yan/demo4.git']
-            ]
           }
         }
         stage('QAPublishToAppRepo') {
           steps {
             snDevOpsStep()
-            build job: 'common/PublishToAppRepo', parameters: [
-              [$class: 'StringParameterValue', name: 'instance', value: 'surfgitdemo3'],
-              [$class: 'StringParameterValue', name: 'appSysid', value: 'b43a63ce1b9b84d02b58ec67bc4bcb3c'],
-              [$class: 'StringParameterValue', name: 'appScope', value: 'x_snc_devops_demo4'],
-              [$class: 'StringParameterValue', name: 'appNotes', value: 'test publish demo4 app']
-            ]
           }
         }
         stage('QADeployFromAppRepo') {
           steps {
             snDevOpsStep()
-            build job: 'common/DeployFromAppRepo', parameters: [
-              [$class: 'StringParameterValue', name: 'instance', value: 'surfgitdeqa'],
-              [$class: 'StringParameterValue', name: 'appSysid', value: 'b43a63ce1b9b84d02b58ec67bc4bcb3c'],
-              [$class: 'StringParameterValue', name: 'appScope', value: 'x_snc_devops_demo4'],
-              [$class: 'StringParameterValue', name: 'appversion', value: 'NA']
-            ]
           }
         }
       }
@@ -106,10 +75,6 @@ pipeline {
       }
       steps {
         snDevOpsStep()
-        build job: 'common/ExecuteATFSuite', parameters: [
-          [$class: 'StringParameterValue', name: 'instance', value: 'surfgitdeqa'],
-          [$class: 'StringParameterValue', name: 'testsuiteid', value: 'e33b23421bdb84d02b58ec67bc4bcb6c']
-        ]
       }
     }
     //triggers on stage branch
@@ -121,34 +86,16 @@ pipeline {
         stage('StageDeployFromGit') {
           steps {
             snDevOpsStep()
-            build job: 'common/DeployAppFromGit', parameters: [
-              [$class: 'StringParameterValue', name: 'appscope', value: 'x_snc_devops_demo4'],
-              [$class: 'StringParameterValue', name: 'instance', value: 'surfgitdemo3'],
-              [$class: 'StringParameterValue', name: 'branch', value: 'stage'],
-              [$class: 'StringParameterValue', name: 'gitrepo', value: 'https://code.devsnc.com/frank-yan/demo4.git']
-            ]
           }
         }
         stage('StagePublishToAppRepo') {
           steps {
             snDevOpsStep()
-            build job: 'common/PublishToAppRepo', parameters: [
-              [$class: 'StringParameterValue', name: 'instance', value: 'surfgitdemo3'],
-              [$class: 'StringParameterValue', name: 'appSysid', value: 'b43a63ce1b9b84d02b58ec67bc4bcb3c'],
-              [$class: 'StringParameterValue', name: 'appScope', value: 'x_snc_devops_demo4'],
-              [$class: 'StringParameterValue', name: 'appNotes', value: 'test publish demo4 app']
-            ]
           }
         }
         stage('StageDeployFromAppRepo') {
           steps {
             snDevOpsStep()
-            build job: 'common/DeployFromAppRepo', parameters: [
-              [$class: 'StringParameterValue', name: 'instance', value: 'surfgitdemostage'],
-              [$class: 'StringParameterValue', name: 'appSysid', value: 'b43a63ce1b9b84d02b58ec67bc4bcb3c'],
-              [$class: 'StringParameterValue', name: 'appScope', value: 'x_snc_devops_demo4'],
-              [$class: 'StringParameterValue', name: 'appversion', value: 'NA']
-            ]
           }
         }
       }
@@ -159,10 +106,6 @@ pipeline {
       }
       steps {
         snDevOpsStep()
-        build job: 'common/ExecuteATFSuite', parameters: [
-          [$class: 'StringParameterValue', name: 'instance', value: 'surfgitdemostage'],
-          [$class: 'StringParameterValue', name: 'testsuiteid', value: 'e33b23421bdb84d02b58ec67bc4bcb6c']
-        ]
       }
     }
     //triggers on master branch
@@ -172,12 +115,6 @@ pipeline {
       }
       steps {
         snDevOpsStep()
-        build job: 'common/DeployFromAppRepo', parameters: [
-          [$class: 'StringParameterValue', name: 'instance', value: 'surfgitdeprod'],
-          [$class: 'StringParameterValue', name: 'appSysid', value: 'b43a63ce1b9b84d02b58ec67bc4bcb3c'],
-          [$class: 'StringParameterValue', name: 'appScope', value: 'x_snc_devops_demo4'],
-          [$class: 'StringParameterValue', name: 'appversion', value: 'NA']
-        ]
       }
     }
   }
