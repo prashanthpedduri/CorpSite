@@ -1,0 +1,184 @@
+pipeline {
+  //agent is used to specify which Jenkins node will use to run these jobs
+  agent {
+    label 'master'
+  }
+  stages {
+       //This is a top level stage.  When you setup your pipeline on the SN instance
+       //the stage name 'DevATF' here needs to match the Orchestration stage field
+       //on the Steps record. you can find the Orchestration stage field by going to
+       //the SN instance, Devops-> App & Pipelines -> Apps, open your app, it's under
+       //the Steps related list.
+        stage('DevATF') {
+          //this specifies that this stage will be triggered on event from dev branch
+          when {
+            branch 'dev'
+          }
+          steps {
+            snDevOpsStep()
+            build job: 'common/ExecuteATFSuite', parameters: [
+              [$class: 'StringParameterValue', name: 'instance', value: 'surfgitdev1'],
+              [$class: 'StringParameterValue', name: 'testsuiteid', value: 'e33b23421bdb84d02b58ec67bc4bcb6c']
+            ]
+          }
+        }
+        //This is a top level stage.  When you setup your pipeline on the SN instance
+        //the stage name 'DevHealthScan' here needs to match the Orchestration stage field
+        //on the Steps record. you can find the Orchestration stage field by going to
+        //the SN instance, Devops-> App & Pipelines -> Apps, open your app, it's under
+        //the Steps related list.
+        stage('DevHealthScan') {
+          //this specifies that this stage will be triggered on event from dev branch
+          when {
+            branch 'dev'
+          }
+          steps {
+            snDevOpsStep()
+            build job: 'common/HealthScan', parameters: [
+              [$class: 'StringParameterValue', name: 'instance', value: 'surfgitdev1'],
+              [$class: 'StringParameterValue', name: 'portfolio', value: 'Surf%20IT'],
+              [$class: 'StringParameterValue', name: 'scantype', value: 'custom_scan'],
+              [$class: 'StringParameterValue', name: 'priority', value: 'aggressive'],
+              [$class: 'StringParameterValue', name: 'appsysid', value: 'b43a63ce1b9b84d02b58ec67bc4bcb3c'],
+              [$class: 'StringParameterValue', name: 'emaillist', value: ''],
+              [$class: 'StringParameterValue', name: 'notn_pref', value: 'true']
+            ]
+          }
+        }
+        //This is a top level stage.  When you setup your pipeline on the SN instance
+        //the stage name 'QADeploy' here needs to match the Orchestration stage field
+        //on the Steps record. you can find the Orchestration stage field by going to
+        //the SN instance, Devops-> App & Pipelines -> Apps, open your app, it's under
+        //the Steps related list.
+    stage('QADeploy') {
+      //this specifies that this stage will be triggered on event from qa branch
+      when {
+        branch 'qa'
+      }
+      stages {
+        //under stages, below are the nested child stages for parent stage QADeploy.
+        //DevOps will only see the top level QADeploy stage.  We are grouping
+        //deploy from git, publish to app store and deploy to instance into a single
+        //parent stage for easier visualization on DevOps
+        stage('QADeployFromGit') {
+          steps {
+            snDevOpsStep()
+            build job: 'common/DeployAppFromGit', parameters: [
+              [$class: 'StringParameterValue', name: 'appscope', value: 'x_snc_devops_demo4'],
+              [$class: 'StringParameterValue', name: 'instance', value: 'surfgitdemo3'],
+              [$class: 'StringParameterValue', name: 'branch', value: 'qa'],
+              [$class: 'StringParameterValue', name: 'gitrepo', value: 'https://code.devsnc.com/frank-yan/demo4.git']
+            ]
+          }
+        }
+        stage('QAPublishToAppRepo') {
+          steps {
+            snDevOpsStep()
+            build job: 'common/PublishToAppRepo', parameters: [
+              [$class: 'StringParameterValue', name: 'instance', value: 'surfgitdemo3'],
+              [$class: 'StringParameterValue', name: 'appSysid', value: 'b43a63ce1b9b84d02b58ec67bc4bcb3c'],
+              [$class: 'StringParameterValue', name: 'appScope', value: 'x_snc_devops_demo4'],
+              [$class: 'StringParameterValue', name: 'appNotes', value: 'test publish demo4 app']
+            ]
+          }
+        }
+        stage('QADeployFromAppRepo') {
+          steps {
+            snDevOpsStep()
+            build job: 'common/DeployFromAppRepo', parameters: [
+              [$class: 'StringParameterValue', name: 'instance', value: 'surfgitdeqa'],
+              [$class: 'StringParameterValue', name: 'appSysid', value: 'b43a63ce1b9b84d02b58ec67bc4bcb3c'],
+              [$class: 'StringParameterValue', name: 'appScope', value: 'x_snc_devops_demo4'],
+              [$class: 'StringParameterValue', name: 'appversion', value: 'NA']
+            ]
+          }
+        }
+      }
+    }
+    //This is a top level stage.  When you setup your pipeline on the SN instance
+    //the stage name 'QAATF' here needs to match the Orchestration stage field
+    //on the Steps record. you can find the Orchestration stage field by going to
+    //the SN instance, Devops-> App & Pipelines -> Apps, open your app, it's under
+    //the Steps related list.
+    stage('QAATF') {
+      when {
+        branch 'qa'
+      }
+      steps {
+        snDevOpsStep()
+        build job: 'common/ExecuteATFSuite', parameters: [
+          [$class: 'StringParameterValue', name: 'instance', value: 'surfgitdeqa'],
+          [$class: 'StringParameterValue', name: 'testsuiteid', value: 'e33b23421bdb84d02b58ec67bc4bcb6c']
+        ]
+      }
+    }
+    //triggers on stage branch
+    stage('StageDeploy') {
+      when {
+        branch 'stage'
+      }
+      stages {
+        stage('StageDeployFromGit') {
+          steps {
+            snDevOpsStep()
+            build job: 'common/DeployAppFromGit', parameters: [
+              [$class: 'StringParameterValue', name: 'appscope', value: 'x_snc_devops_demo4'],
+              [$class: 'StringParameterValue', name: 'instance', value: 'surfgitdemo3'],
+              [$class: 'StringParameterValue', name: 'branch', value: 'stage'],
+              [$class: 'StringParameterValue', name: 'gitrepo', value: 'https://code.devsnc.com/frank-yan/demo4.git']
+            ]
+          }
+        }
+        stage('StagePublishToAppRepo') {
+          steps {
+            snDevOpsStep()
+            build job: 'common/PublishToAppRepo', parameters: [
+              [$class: 'StringParameterValue', name: 'instance', value: 'surfgitdemo3'],
+              [$class: 'StringParameterValue', name: 'appSysid', value: 'b43a63ce1b9b84d02b58ec67bc4bcb3c'],
+              [$class: 'StringParameterValue', name: 'appScope', value: 'x_snc_devops_demo4'],
+              [$class: 'StringParameterValue', name: 'appNotes', value: 'test publish demo4 app']
+            ]
+          }
+        }
+        stage('StageDeployFromAppRepo') {
+          steps {
+            snDevOpsStep()
+            build job: 'common/DeployFromAppRepo', parameters: [
+              [$class: 'StringParameterValue', name: 'instance', value: 'surfgitdemostage'],
+              [$class: 'StringParameterValue', name: 'appSysid', value: 'b43a63ce1b9b84d02b58ec67bc4bcb3c'],
+              [$class: 'StringParameterValue', name: 'appScope', value: 'x_snc_devops_demo4'],
+              [$class: 'StringParameterValue', name: 'appversion', value: 'NA']
+            ]
+          }
+        }
+      }
+    }
+    stage('StageATF') {
+      when {
+        branch 'stage'
+      }
+      steps {
+        snDevOpsStep()
+        build job: 'common/ExecuteATFSuite', parameters: [
+          [$class: 'StringParameterValue', name: 'instance', value: 'surfgitdemostage'],
+          [$class: 'StringParameterValue', name: 'testsuiteid', value: 'e33b23421bdb84d02b58ec67bc4bcb6c']
+        ]
+      }
+    }
+    //triggers on master branch
+    stage('ProdDeploy') {
+      when {
+        branch 'master'
+      }
+      steps {
+        snDevOpsStep()
+        build job: 'common/DeployFromAppRepo', parameters: [
+          [$class: 'StringParameterValue', name: 'instance', value: 'surfgitdeprod'],
+          [$class: 'StringParameterValue', name: 'appSysid', value: 'b43a63ce1b9b84d02b58ec67bc4bcb3c'],
+          [$class: 'StringParameterValue', name: 'appScope', value: 'x_snc_devops_demo4'],
+          [$class: 'StringParameterValue', name: 'appversion', value: 'NA']
+        ]
+      }
+    }
+  }
+}
