@@ -90,14 +90,15 @@ pipeline {
             }
         }
         stage('PROD') {
-            stage('deploy UAT') {
-                when {
-                    branch 'dev'
+            steps {
+                stage('deploy UAT') {
+                    when {
+                        branch 'dev'
+                    }
+                    steps {
+                        snDevOpsStep()
+                    }
                 }
-                steps {
-                    snDevOpsStep()
-                }
-            }
             stage('deploy PROD') {
                 when {
                     branch 'master'
@@ -123,6 +124,8 @@ pipeline {
                     }
                 }
             }
+            }
+            
         }
     }
 }
