@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools { 
-        maven 'Jenkins Maven' 
+        maven 'Maven' 
     }
     environment {
         DEPLOY_ENV = "CorpSite UAT"
@@ -109,7 +109,7 @@ pipeline {
                 DEPLOY_ENV = "CorpSite PROD"
             }
             steps {
-                sh 'echo "hi"'
+                sh 'echo "hi there"'
             }
             
         }
@@ -121,7 +121,7 @@ pipeline {
                     sshPublisher(continueOnError: false, failOnError: true,
                     publishers: [
                         sshPublisherDesc(
-                            configName: ${DEPLOY_ENV},
+                            configName: "${DEPLOY_ENV}",
                             verbose: true,
                             transfers: [
                                 sshTransfer(
