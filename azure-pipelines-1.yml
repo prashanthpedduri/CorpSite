@@ -26,12 +26,9 @@ stages:
   jobs:
   - job: 'RegisterArtifactPackage'
     steps:
-    - task: Bash@3
+    - task: InvokeRESTAPI@1
       inputs:
-        targetType: 'inline'
-        script: |
-          # Write your commands here
-          echo 'In Job 3'
+        
   - job: 'PushArtifacts'
     steps:
     - task: Bash@3
@@ -49,7 +46,7 @@ stages:
     - task: InvokeRESTAPI@1
       inputs:
         connectionType: 'connectedServiceName'
-        serviceConnection: 'empmolugu'
+        serviceConnection: 'PPedduriOrchestrationConn'
         method: 'POST'
         body: |
           {
