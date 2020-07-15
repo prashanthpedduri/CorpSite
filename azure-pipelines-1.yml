@@ -24,19 +24,26 @@ stages:
           echo $(build.sourceBranchName)
 - stage: Test
   jobs:
-  - job: 'Three'
+  - job: 'RegisterArtifactPackage'
     steps:
     - task: Bash@3
       inputs:
         targetType: 'inline'
         script: |
           # Write your commands here
-          echo 'Hello world'
+          echo 'In Job 3'
+  - job: 'PushArtifacts'
+    steps:
+    - task: Bash@3
+      inputs:
+        targetType: 'inline'
+        script: |
+          # Write your commands here
+          echo 'In Job 4'
   
 - stage: Deploy
   jobs:
   - job: 'Five'
-    dependsOn: 'Three'
     pool: server
     steps:
     - task: InvokeRESTAPI@1
