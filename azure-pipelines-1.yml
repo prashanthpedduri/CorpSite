@@ -40,7 +40,12 @@ stages:
                 "semanticVersion": "1.$(build.buildId).0",
                 "repositoryName": "DemoArtifactRepo1"
               }
-            ]
+            ],
+          "projectName": "PedduriProj5",  
+          "pipelineName": "$(system.teamProject)/$(build.definitionName)",
+          "taskExecutionNumber": "$(build.buildId)",
+          "stageName": "$(system.jobDisplayName)",
+          "branchName": "$(build.sourceBranchName)"
           }
         urlSuffix: '/artifact/registration'
         waitForCompletion: 'false'
