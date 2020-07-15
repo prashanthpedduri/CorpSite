@@ -26,6 +26,7 @@ stages:
 - stage: Test
   jobs:
   - job: 'RegisterArtifactPackage'
+    pool: server
     steps:
     - task: InvokeRESTAPI@1
       inputs:
@@ -52,6 +53,7 @@ stages:
         urlSuffix: '/artifact/registration'
         waitForCompletion: 'false'
   - job: 'PushArtifacts'
+    pool: server
     dependsOn: 'RegisterArtifactPackage'
     steps:
     - task: InvokeRESTAPI@1
