@@ -40,13 +40,12 @@ stages:
                 "repositoryName": "DemoArtifactRepo1"
               }
             ],
-          "projectName": "PedduriProj5",  
           "pipelineName": "$(system.teamProject)/$(build.definitionName)",
           "taskExecutionNumber": "$(build.buildId)",
           "stageName": "$(system.jobDisplayName)",
           "branchName": "$(build.sourceBranchName)"
           }
-        urlSuffix: '/artifact/registration'
+        urlSuffix: '/artifact/registration?orchestrationToolId=617c9f051b465010c4ab98e8bc4bcb29'
         waitForCompletion: 'false'
   - job: 'PushArtifacts'
     pool: server
@@ -75,7 +74,7 @@ stages:
             "stageName": "$(system.jobDisplayName)",
             "branchName": "$(build.sourceBranchName)"
           }
-        urlSuffix: '/package/registration'
+        urlSuffix: '/package/registration?orchestrationToolId=617c9f051b465010c4ab98e8bc4bcb29'
         waitForCompletion: 'false'
   
 - stage: Deploy
