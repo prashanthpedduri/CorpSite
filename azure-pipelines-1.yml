@@ -5,7 +5,6 @@ stages:
 - stage: Build
   jobs:
   - job: "Build"
-    dependsOn: 'One'
     steps:
     - task: Bash@3
       inputs:
