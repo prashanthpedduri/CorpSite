@@ -58,6 +58,7 @@ stages:
         method: 'POST'
         body: |
           {
+            "name": "MyArtifactPackage1",
             "artifacts": [
               {
                 "name": "DemoArtifactRepo1",
