@@ -61,7 +61,7 @@ stages:
             "name": "MyArtifactPackage1",
             "artifacts": [
               {
-                "name": "DemoArtifactRepo1",
+                "name": "DemoArtifact1",
                 "repositoryName": "DemoArtifactRepo1",
                 "version": "1.$(build.buildId)",
                 "pipelineName": "$(system.teamProject)/$(build.definitionName)",
